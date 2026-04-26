@@ -1,0 +1,683 @@
+/* ─── Переменные и темы ──────────────────────────────────────────────── */
+
+:root {
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    --radius: 16px;
+    --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+    --bg: #0a0e1a;
+    --bg2: #111827;
+    --card: #151d30;
+    --border: #1e2a45;
+    --text: #e8ecf4;
+    --text-dim: #7a8ba8;
+    --accent: #e8457c;
+    --accent2: #ff6b9d;
+    --accent-glow: rgba(232, 69, 124, 0.35);
+    --green: #00e676;
+    --green-glow: rgba(0, 230, 118, 0.25);
+    --input-bg: #0f1628;
+    --modal-bg: #141c2f;
+    --orb1: rgba(232, 69, 124, 0.12);
+    --orb2: rgba(255, 107, 157, 0.08);
+    --orb3: rgba(120, 80, 200, 0.1);
+}
+
+[data-theme="light"] {
+    --bg: #f5f0f3;
+    --bg2: #ede7ec;
+    --card: #ffffff;
+    --border: #e0d5dc;
+    --text: #1a1020;
+    --text-dim: #8a7a88;
+    --accent: #d4346a;
+    --accent2: #e8457c;
+    --accent-glow: rgba(212, 52, 106, 0.18);
+    --green: #00c853;
+    --green-glow: rgba(0, 200, 83, 0.15);
+    --input-bg: #f9f5f7;
+    --modal-bg: #ffffff;
+    --orb1: rgba(212, 52, 106, 0.07);
+    --orb2: rgba(255, 107, 157, 0.05);
+    --orb3: rgba(120, 80, 200, 0.06);
+}
+
+/* ─── Reset & Base ──────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background var(--transition), color var(--transition);
+}
+
+/* ─── Фоновые орбы ──────────────────────────────────────────────────── */
+
+.bg-orbs {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: orbFloat 12s ease-in-out infinite;
+}
+
+.orb-1 {
+    width: 500px; height: 500px;
+    background: var(--orb1);
+    top: -10%; left: -5%;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 400px; height: 400px;
+    background: var(--orb2);
+    bottom: -5%; right: -5%;
+    animation-delay: -4s;
+    animation-duration: 15s;
+}
+
+.orb-3 {
+    width: 350px; height: 350px;
+    background: var(--orb3);
+    top: 40%; left: 50%;
+    animation-delay: -8s;
+    animation-duration: 18s;
+}
+
+@keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -30px) scale(1.08); }
+    66% { transform: translate(-30px, 20px) scale(0.95); }
+}
+
+/* ─── Навигация ─────────────────────────────────────────────────────── */
+
+.navbar {
+    position: relative; z-index: 10;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 32px;
+}
+
+.logo {
+    font-size: 24px; font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.theme-toggle {
+    position: relative;
+    width: 48px; height: 48px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    background: var(--card);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    transition: all var(--transition);
+    overflow: hidden;
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent);
+    transform: rotate(15deg) scale(1.1);
+}
+
+[data-theme="dark"] .icon-sun  { display: inline; }
+[data-theme="dark"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun  { display: none; }
+[data-theme="light"] .icon-moon { display: inline; }
+
+/* ─── Hero ──────────────────────────────────────────────────────────── */
+
+.hero {
+    position: relative; z-index: 5;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 40px 24px 80px;
+    min-height: calc(100vh - 90px);
+    justify-content: center;
+}
+
+/* ─── Щит ───────────────────────────────────────────────────────────── */
+
+.shield-container {
+    position: relative;
+    width: 160px; height: 180px;
+    margin-bottom: 32px;
+}
+
+.shield-glow {
+    position: absolute; inset: -30px;
+    background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+    border-radius: 50%;
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+.shield-svg {
+    width: 100%; height: 100%;
+    color: var(--accent);
+    filter: drop-shadow(0 0 20px var(--accent-glow));
+}
+
+.shield-path {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: drawShield 2s ease forwards 0.3s;
+}
+
+@keyframes drawShield {
+    to { stroke-dashoffset: 0; }
+}
+
+.bolt {
+    opacity: 0;
+    animation: boltIn 0.5s ease forwards 1.8s;
+    transform-origin: center;
+}
+
+@keyframes boltIn {
+    0% { opacity: 0; transform: scale(0.5) translateY(-5px); }
+    60% { opacity: 1; transform: scale(1.15) translateY(0); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ─── Текст ─────────────────────────────────────────────────────────── */
+
+.title {
+    font-size: 48px; font-weight: 900;
+    letter-spacing: -1.5px;
+    margin-bottom: 8px;
+    animation: fadeUp 0.8s ease both 0.5s;
+}
+
+.title span {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: var(--text-dim);
+    margin-bottom: 40px;
+    animation: fadeUp 0.8s ease both 0.7s;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Фичи ──────────────────────────────────────────────────────────── */
+
+.features {
+    display: flex; gap: 24px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s ease both 0.9s;
+}
+
+.feature {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 16px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: all var(--transition);
+}
+
+.feature:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px var(--accent-glow);
+}
+
+.feature-icon { font-size: 28px; }
+.feature-text { font-size: 13px; font-weight: 600; color: var(--text-dim); }
+
+/* ─── Кнопка купить ─────────────────────────────────────────────────── */
+
+.buy-btn {
+    position: relative;
+    padding: 18px 48px;
+    font-size: 18px; font-weight: 700;
+    font-family: var(--font);
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all var(--transition);
+    animation: fadeUp 0.8s ease both 1.1s;
+}
+
+.buy-btn:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 12px 40px var(--accent-glow);
+}
+
+.buy-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn-pulse {
+    position: absolute; inset: 0;
+    border-radius: 60px;
+    animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+    50% { box-shadow: 0 0 0 14px transparent; }
+}
+
+/* ─── Модальное окно ────────────────────────────────────────────────── */
+
+.modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1; visibility: visible;
+}
+
+.modal {
+    position: relative;
+    width: 90%; max-width: 520px;
+    background: var(--modal-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 36px 32px;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal {
+    transform: translateY(0) scale(1);
+}
+
+.modal-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--text-dim);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all var(--transition);
+}
+
+.modal-close:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.modal-title {
+    font-size: 22px; font-weight: 800;
+    margin-bottom: 0;
+}
+
+.modal-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+}
+
+.modal-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-dim);
+}
+
+.modal-text strong {
+    color: var(--text);
+}
+
+.highlight {
+    color: var(--accent) !important;
+    font-weight: 700;
+}
+
+/* ─── Инпут ──────────────────────────────────────────────────────────── */
+
+.input-label {
+    display: block;
+    font-size: 13px; font-weight: 600;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+}
+
+.input-row {
+    display: flex; gap: 10px;
+}
+
+.key-input {
+    flex: 1;
+    padding: 14px 18px;
+    font-size: 15px;
+    font-family: var(--mono);
+    background: var(--input-bg);
+    color: var(--text);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    outline: none;
+    transition: all var(--transition);
+}
+
+.key-input::placeholder {
+    color: var(--text-dim);
+    opacity: 0.5;
+}
+
+.key-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+.activate-btn {
+    padding: 14px 24px;
+    font-size: 14px; font-weight: 700;
+    font-family: var(--font);
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--transition);
+}
+
+.activate-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+.error-msg {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #ff5252;
+    min-height: 20px;
+    transition: all 0.2s;
+}
+
+/* ─── Успех ──────────────────────────────────────────────────────────── */
+
+.modal-step.hidden { display: none; }
+
+.success-icon {
+    font-size: 56px;
+    text-align: center;
+    margin-bottom: 12px;
+    animation: successBounce 0.6s ease;
+}
+
+@keyframes successBounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.3); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+.success-title {
+    text-align: center;
+    color: var(--green) !important;
+}
+
+.success-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+}
+
+.config-box {
+    position: relative;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-top: 8px;
+}
+
+.config-box code {
+    display: block;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text);
+    word-break: break-all;
+    white-space: pre-wrap;
+    max-height: 120px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.config-box code::-webkit-scrollbar {
+    width: 4px;
+}
+
+.config-box code::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+}
+
+.copy-btn {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 12px;
+    padding: 10px 20px;
+    font-size: 13px; font-weight: 600;
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.copy-btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+}
+
+.copy-btn.copied {
+    border-color: var(--green);
+    color: var(--green);
+}
+
+/* ─── Навигация — кнопки ────────────────────────────────────────────── */
+
+.nav-actions {
+    display: flex; align-items: center; gap: 10px;
+}
+
+.nav-btn {
+    width: 48px; height: 48px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    background: var(--card);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    transition: all var(--transition);
+}
+
+.nav-btn:hover {
+    border-color: var(--accent);
+    transform: scale(1.1);
+}
+
+/* ─── Секция о качестве ─────────────────────────────────────────────── */
+
+.about-section {
+    position: relative; z-index: 5;
+    padding: 60px 24px 80px;
+}
+
+.about-card {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px 40px;
+    text-align: center;
+    animation: fadeUp 0.8s ease both;
+}
+
+.about-icon {
+    font-size: 52px;
+    margin-bottom: 20px;
+}
+
+.about-title {
+    font-size: 26px; font-weight: 800;
+    line-height: 1.35;
+    margin-bottom: 16px;
+}
+
+.about-text {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text-dim);
+    margin-bottom: 28px;
+}
+
+.about-text strong {
+    color: var(--text);
+}
+
+.about-badges {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    margin-bottom: 32px;
+}
+
+.badge {
+    padding: 8px 16px;
+    font-size: 13px; font-weight: 600;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    color: var(--text-dim);
+    transition: all var(--transition);
+}
+
+.badge:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.about-services {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    text-align: left;
+}
+
+.service-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 18px;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: all var(--transition);
+}
+
+.service-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+.service-icon { font-size: 28px; }
+
+.service-name {
+    display: block;
+    font-size: 14px; font-weight: 700;
+    color: var(--text);
+}
+
+.service-desc {
+    display: block;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 2px;
+}
+
+/* ─── Модалка помощи ─────────────────────────────────────────────────── */
+
+.help-modal {
+    text-align: center;
+}
+
+.help-icon {
+    font-size: 52px;
+    margin-bottom: 8px;
+}
+
+.help-tips {
+    display: flex; flex-direction: column; gap: 12px;
+}
+
+.tip {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    font-size: 14px;
+    color: var(--text-dim);
+    text-align: left;
+    transition: all var(--transition);
+}
+
+.tip:hover {
+    border-color: var(--accent);
+}
+
+.tip-icon { font-size: 20px; flex-shrink: 0; }
+
+/* ─── Адаптив ───────────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+    .title { font-size: 36px; }
+    .features { gap: 12px; }
+    .feature { padding: 12px 16px; }
+    .buy-btn { padding: 16px 36px; font-size: 16px; }
+    .modal { padding: 28px 20px; }
+    .input-row { flex-direction: column; }
+    .shield-container { width: 120px; height: 135px; }
+    .about-card { padding: 32px 20px; }
+    .about-title { font-size: 20px; }
+    .about-services { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love VPN</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Фоновые анимированные элементы -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="logo">❤️ Love<span>VPN</span></div>
+        <button class="theme-toggle" id="themeToggle" title="Сменить тему">
+            <span class="icon-sun">☀️</span>
+            <span class="icon-moon">🌙</span>
+        </button>
+    </nav>
+
+    <!-- Главный контент -->
+    <main class="hero">
+        <div class="shield-container">
+            <div class="shield-glow"></div>
+            <div class="shield">
+                <svg viewBox="0 0 120 140" class="shield-svg">
+                    <path d="M60 10 L105 35 L105 75 Q105 110 60 130 Q15 110 15 75 L15 35 Z"
+                          fill="none" stroke="currentColor" stroke-width="3" class="shield-path"/>
+                    <path d="M52 60 L68 60 L63 78 L75 78 L55 105 L60 85 L48 85 Z"
+                          fill="currentColor" class="bolt"/>
+                </svg>
+            </div>
+        </div>
+
+        <h1 class="title">Love <span>VPN</span></h1>
+        <p class="subtitle">Безопасность • Скорость • Приватность</p>
+
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">🔒</span>
+                <span class="feature-text">Шифрование</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⚡</span>
+                <span class="feature-text">Скорость</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🌍</span>
+                <span class="feature-text">VLESS</span>
+            </div>
+        </div>
+
+        <button class="buy-btn" id="buyBtn">
+            <span class="btn-pulse"></span>
+            Купить конфиг
+        </button>
+    </main>
+
+    <!-- Секция о качестве -->
+    <section class="about-section">
+        <div class="about-card">
+            <div class="about-icon">🛡️</div>
+            <h2 class="about-title">Лучший качественный ВПН для обхода белых списков в 2 клика</h2>
+            <p class="about-text">
+                Траффик шифруется для защиты кражи данных, и безлимитность в использовании — 
+                теперь <strong>YouTube</strong>, а также <strong>Telegram</strong>, <strong>WhatsApp</strong>, 
+                <strong>Instagram</strong> можно использовать без зависаний и с обходом блокировок.
+            </p>
+            <div class="about-badges">
+                <span class="badge">🔒 Шифрование</span>
+                <span class="badge">♾️ Безлимит</span>
+                <span class="badge">⚡ Без зависаний</span>
+                <span class="badge">🌍 Обход блокировок</span>
+            </div>
+            <div class="about-services">
+                <div class="service-item">
+                    <span class="service-icon">▶️</span>
+                    <div>
+                        <span class="service-name">YouTube</span>
+                        <span class="service-desc">Без буферизации в 4K</span>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <span class="service-icon">✈️</span>
+                    <div>
+                        <span class="service-name">Telegram</span>
+                        <span class="service-desc">Без ограничений скорости</span>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <span class="service-icon">💬</span>
+                    <div>
+                        <span class="service-name">WhatsApp</span>
+                        <span class="service-desc">Звонки и сообщения без сбоев</span>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <span class="service-icon">📸</span>
+                    <div>
+                        <span class="service-name">Instagram</span>
+                        <span class="service-desc">Reels и Stories мгновенно</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно помощи -->
+    <div class="modal-overlay" id="helpOverlay">
+        <div class="modal help-modal">
+            <button class="modal-close" id="helpClose">✕</button>
+            <div class="help-icon">🛟</div>
+            <h2 class="modal-title">Помощь</h2>
+            <div class="modal-divider"></div>
+            <p class="modal-text">
+                Если какие-то возникают проблемы с LoveVPN — советуется написать разработчику в
+                <strong>Discord: <span class="highlight">MalwareClassic</span></strong>,
+                он вам со всем поможет.
+            </p>
+            <div class="modal-divider"></div>
+            <div class="help-tips">
+                <div class="tip">
+                    <span class="tip-icon">🔄</span>
+                    <span>Не подключается? Проверьте правильность конфига</span>
+                </div>
+                <div class="tip">
+                    <span class="tip-icon">📶</span>
+                    <span>Низкая скорость? Попробуйте другой сервер</span>
+                </div>
+                <div class="tip">
+                    <span class="tip-icon">💬</span>
+                    <span>Остались вопросы? Пишите в Discord</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно покупки -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modalClose">✕</button>
+
+            <!-- Шаг 1: Информация -->
+            <div class="modal-step" id="stepInfo">
+                <h2 class="modal-title">🔑 Получение VLESS конфига</h2>
+                <div class="modal-divider"></div>
+                <p class="modal-text">
+                    Для покупки VLESS конфига необходимо написать в
+                    <strong>Discord: <span class="highlight">Malwareclassic</span></strong>
+                    и оплатить покупку, после чего он вам даст ключ активации для получения VLESS конфига.
+                </p>
+                <div class="modal-divider"></div>
+                <label class="input-label" for="keyInput">Введите ключ активации</label>
+                <div class="input-row">
+                    <input type="text" id="keyInput" class="key-input" placeholder="A-XXXX" autocomplete="off" spellcheck="false">
+                    <button class="activate-btn" id="activateBtn">Активировать</button>
+                </div>
+                <p class="error-msg" id="errorMsg"></p>
+            </div>
+
+            <!-- Шаг 2: Успех -->
+            <div class="modal-step hidden" id="stepSuccess">
+                <div class="success-icon">✅</div>
+                <h2 class="modal-title success-title">Ключ сработал успешно!</h2>
+                <p class="success-subtitle">Ваш VLESS конфиг:</p>
+                <div class="config-box" id="configBox">
+                    <code id="configText"></code>
+                    <button class="copy-btn" id="copyBtn" title="Скопировать">
+                        <span id="copyIcon">📋</span>
+                        <span id="copyText">Скопировать</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
