@@ -1,6 +1,6 @@
 /* ─── Love VPN — Script ─────────────────────────────────────────────── */
 
-const VALID_KEYS = new Set(['A-2875', 'A-1147']);
+const VALID_KEYS = new Set(['A-2875', 'A-1147', 'A-3287']);
 
 const VLESS_CONFIG = 'vless://c4f08d9d-23a5-45a2-94bf-afdc6977ac66@panel.mvpnz.com:2087/?type=tcp&encryption=none&security=reality&pbk=tC4Ndmrv2Y1VSCQtzYN7dTH-1UTX_v1-WQjlyZCdezQ&fp=chrome&sni=www.apple.com&sid=b4a7afe0&spx=%2Frandom#EST-4-monopriz.com%20-%20%D0%BB%D1%83%D1%87%D1%88%D0%B8%D0%B9%20%D0%BE%D0%B1%D0%BC%D0%B5%D0%BD';
 
