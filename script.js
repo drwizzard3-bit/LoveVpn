@@ -3,7 +3,7 @@
 // ── База ключей и соответствующих им конфигов ─────────────────────────
 
 const KEY_CONFIG_MAP = {
-    'A-2875': 'vless://c4f08d9d-23a5-45a2-94bf-afdc6977ac66@panel.mvpnz.com:2087/?type=tcp&encryption=none&security=reality&pbk=tC4Ndmrv2Y1VSCQtzYN7dTH-1UTX_v1-WQjlyZCdezQ&fp=chrome&sni=www.apple.com&sid=b4a7afe0&spx=%2Frandom#EST-4-monopriz.com%20-%20%D0%BB%D1%83%D1%87%D1%88%D0%B8%D0%B9%20%D0%BE%D0%B1%D0%BC%D0%B5%D0%BD',
+    'A-2875': 'vless://c4f08d9d-23a5-45a2-94bf-afdc6977ac66@panel.mvpnz.com:2087?security=reality&encryption=none&pbk=tC4Ndmrv2Y1VSCQtzYN7dTH-1UTX_v1-WQjlyZCdezQ&headerType=none&fp=chrome&spx=%2Frandom&type=tcp&sni=www.apple.com&sid=b4a7afe0#Aglayua%20Ultimate%20%2B',
     
     'A-1147': 'vless://9e6395ce-22df-4aa7-a6af-9bc5419d6667@free10.anotherboring.top:443?security=reality&encryption=none&pbk=2l8RtzQc0LFfIhdPCKGqfJUD1l4cnMpwhCB3lP-4SF4&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=free10.anotherboring.top&sid=f2fb23cd29b1fa1a#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%E2%84%961%20-%20FREE',
     
