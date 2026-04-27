@@ -1,8 +1,21 @@
 /* ─── Love VPN — Script ─────────────────────────────────────────────── */
 
-const VALID_KEYS = new Set(['A-2875', 'A-1147']);
+// ── База ключей и соответствующих им конфигов ─────────────────────────
 
-const VLESS_CONFIG = 'vless://c4f08d9d-23a5-45a2-94bf-afdc6977ac66@panel.mvpnz.com:2087/?type=tcp&encryption=none&security=reality&pbk=tC4Ndmrv2Y1VSCQtzYN7dTH-1UTX_v1-WQjlyZCdezQ&fp=chrome&sni=www.apple.com&sid=b4a7afe0&spx=%2Frandom#EST-4-monopriz.com%20-%20%D0%BB%D1%83%D1%87%D1%88%D0%B8%D0%B9%20%D0%BE%D0%B1%D0%BC%D0%B5%D0%BD';
+const KEY_CONFIG_MAP = {
+    'A-2875': 'vless://c4f08d9d-23a5-45a2-94bf-afdc6977ac66@panel.mvpnz.com:2087/?type=tcp&encryption=none&security=reality&pbk=tC4Ndmrv2Y1VSCQtzYN7dTH-1UTX_v1-WQjlyZCdezQ&fp=chrome&sni=www.apple.com&sid=b4a7afe0&spx=%2Frandom#EST-4-monopriz.com%20-%20%D0%BB%D1%83%D1%87%D1%88%D0%B8%D0%B9%20%D0%BE%D0%B1%D0%BC%D0%B5%D0%BD',
+    
+    'A-1147': 'vless://9e6395ce-22df-4aa7-a6af-9bc5419d6667@free10.anotherboring.top:443?security=reality&encryption=none&pbk=2l8RtzQc0LFfIhdPCKGqfJUD1l4cnMpwhCB3lP-4SF4&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=free10.anotherboring.top&sid=f2fb23cd29b1fa1a#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%E2%84%961%20-%20FREE',
+    
+    'A-2476': 'vless://9e6395ce-22df-4aa7-a6af-9bc5419d6667@free12.anotherboring.top:443?security=reality&encryption=none&pbk=FtZNo5N3mEkJg1-K77nxNxNOVROKYJZEN6yusvICZDA&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=free12.anotherboring.top&sid=566f4d167cc450d6#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%E2%84%962%20-%20FREE',
+    
+    'A-5792': 'vless://9e6395ce-22df-4aa7-a6af-9bc5419d6667@free11.anotherboring.top:443?security=reality&encryption=none&pbk=WaH5A3t9NSHGKccTVpZeS2tgHN8wruhAaiqYsfcCZBM&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=free11.anotherboring.top&sid=3ffdf35e634cbe91#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%E2%84%963%20-%20FREE',
+    
+    'A-4378': 'vless://9e6395ce-22df-4aa7-a6af-9bc5419d6667@64.188.71.34:443?security=reality&encryption=none&pbk=yxB0erqFA3CC498a6VI_WTp0DT3fSB5foUikgxJK0k4&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=nachrichtenleicht.de&sid=0c094e98421aed74#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%E2%84%964%20-%20FREE'
+};
+
+// Все валидные ключи
+const VALID_KEYS = new Set(Object.keys(KEY_CONFIG_MAP));
 
 // ── Элементы ──────────────────────────────────────────────────────────
 
@@ -70,6 +83,12 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modalOverlay.classList.contains('active')) closeModal();
 });
 
+// ── Получение конфига по ключу ────────────────────────────────────────
+
+function getConfigByKey(key) {
+    return KEY_CONFIG_MAP[key] || null;
+}
+
 // ── Активация ключа ──────────────────────────────────────────────────
 
 activateBtn.addEventListener('click', tryActivate);
@@ -86,11 +105,14 @@ function tryActivate() {
     }
 
     if (VALID_KEYS.has(key)) {
+        // Получаем соответствующий конфиг
+        const config = getConfigByKey(key);
+        
         // Успех
         keyInput.style.borderColor = 'var(--green)';
         errorMsg.textContent = '';
 
-        configText.textContent = VLESS_CONFIG;
+        configText.textContent = config;
 
         setTimeout(() => {
             stepInfo.classList.add('hidden');
@@ -128,8 +150,11 @@ document.head.appendChild(shakeStyle);
 // ── Копирование ──────────────────────────────────────────────────────
 
 copyBtn.addEventListener('click', async () => {
+    const configToCopy = configText.textContent;
+    if (!configToCopy) return;
+    
     try {
-        await navigator.clipboard.writeText(VLESS_CONFIG);
+        await navigator.clipboard.writeText(configToCopy);
         copyBtn.classList.add('copied');
         copyIcon.textContent = '✅';
         copyText.textContent = 'Скопировано!';
@@ -141,7 +166,7 @@ copyBtn.addEventListener('click', async () => {
     } catch {
         // Fallback
         const ta = document.createElement('textarea');
-        ta.value = VLESS_CONFIG;
+        ta.value = configToCopy;
         ta.style.position = 'fixed';
         ta.style.opacity = '0';
         document.body.appendChild(ta);
